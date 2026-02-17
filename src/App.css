@@ -234,6 +234,36 @@ a:hover {
   background: rgba(255, 255, 255, 0.68);
 }
 
+.hero-nav-refresh {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.22rem 0.6rem;
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-muted);
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.68rem;
+}
+
+:root[data-theme='light'] .hero-nav-refresh {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.hero-nav-refresh-label {
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-subtle);
+}
+
+.hero-nav-refresh time,
+.hero-nav-refresh span {
+  color: var(--text-main);
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(210px, 0.7fr);
@@ -893,34 +923,6 @@ tbody tr:hover {
   overflow-wrap: anywhere;
 }
 
-.stats {
-  margin: 1rem 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem;
-}
-
-.stats div {
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 0.54rem;
-  background: var(--surface-muted);
-  text-align: center;
-}
-
-.stats strong {
-  display: block;
-  font-size: 1.04rem;
-}
-
-.stats span {
-  color: var(--text-subtle);
-  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
-  font-size: 0.71rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
 .commit-history,
 .language-usage {
   margin-bottom: 0.95rem;
@@ -1259,6 +1261,12 @@ tbody tr:hover {
     min-width: 9rem;
   }
 
+  .hero-nav-refresh {
+    flex: 1 1 100%;
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+
   .summary-strip {
     grid-template-columns: 1fr;
   }
@@ -1354,10 +1362,6 @@ tbody tr:hover {
 
   .profile-top {
     flex-direction: column;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
   }
 
   .commit-day-labels {

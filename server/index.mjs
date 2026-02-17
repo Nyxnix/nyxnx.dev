@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const app = express();
+app.disable('x-powered-by');
 
 const PORT = Number.parseInt(process.env.PORT ?? '3000', 10);
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME ?? 'nyxnix';
@@ -12,6 +13,8 @@ const GITHUB_COMMIT_HISTORY_DAYS = Number.parseInt(process.env.GITHUB_COMMIT_HIS
 const GITHUB_CACHE_TTL_MINUTES = Number.parseInt(process.env.GITHUB_CACHE_TTL_MINUTES ?? '30', 10);
 const GITHUB_CACHE_REFRESH_MS = Number.parseInt(process.env.GITHUB_CACHE_REFRESH_MS ?? '900000', 10);
 const CACHE_REFRESH_TOKEN = process.env.CACHE_REFRESH_TOKEN ?? '';
+const NODE_ENV = process.env.NODE_ENV ?? 'development';
+const isProduction = NODE_ENV === 'production';
 const GITHUB_TOKEN = process.env.GH_API_TOKEN ?? process.env.GITHUB_TOKEN ?? '';
 const REDIS_URL = process.env.REDIS_URL ?? '';
 const STATIC_DIR = path.resolve(process.cwd(), process.env.STATIC_DIR ?? 'docs');
@@ -43,6 +46,14 @@ function assertPositiveInteger(value, fallback) {
 const normalizedHistoryDays = assertPositiveInteger(GITHUB_COMMIT_HISTORY_DAYS, 180);
 const normalizedTtlMinutes = assertPositiveInteger(GITHUB_CACHE_TTL_MINUTES, 30);
 const normalizedRefreshMs = assertPositiveInteger(GITHUB_CACHE_REFRESH_MS, 900000);
+
+app.use((_req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
 
 async function githubRequest(pathname) {
   const headers = {
@@ -398,6 +409,12 @@ app.get('/api/github-dashboard', async (_req, res) => {
 });
 
 app.post('/api/github-dashboard/refresh', async (req, res) => {
+  if (isProduction && !CACHE_REFRESH_TOKEN) {
+    return res.status(503).json({
+      message: 'Manual refresh is disabled in production until CACHE_REFRESH_TOKEN is configured.'
+    });
+  }
+
   if (CACHE_REFRESH_TOKEN && req.headers['x-refresh-token'] !== CACHE_REFRESH_TOKEN) {
     return res.status(401).json({ message: 'Unauthorized refresh request.' });
   }

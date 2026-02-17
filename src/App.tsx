@@ -85,6 +85,7 @@ function formatFriendlyError(error: Error): FriendlyError {
 export default function App() {
   const [repos, setRepos] = useState<RepoViewModel[]>([]);
   const [user, setUser] = useState<GitHubUser | null>(null);
+  const [lastCacheRefreshAt, setLastCacheRefreshAt] = useState<string | null>(null);
   const [posts, setPosts] = useState<HugoPostSummary[]>([]);
   const [readme, setReadme] = useState('');
   const [commitHistory, setCommitHistory] = useState<CommitDayActivity[]>(
@@ -127,6 +128,7 @@ export default function App() {
       setUser(cachedData.user);
       setReadme(cachedData.readme);
       setCommitHistory(cachedData.commit_history);
+      setLastCacheRefreshAt(cachedData.meta.fetched_at);
     } catch (err) {
       const fallback = new Error('Unexpected error while loading GitHub data.');
       setError(err instanceof Error ? err : fallback);
@@ -233,6 +235,30 @@ export default function App() {
   const postsTabClassName = `hero-nav-link hero-nav-button${
     !isReposView ? ' hero-nav-link-active hero-nav-link-posts' : ''
   }`;
+  const lastCacheRefreshDisplay = useMemo(() => {
+    if (!lastCacheRefreshAt) {
+      return {
+        label: isLoading ? 'Loading…' : 'Unavailable',
+        machineDate: null as string | null
+      };
+    }
+
+    const parsed = Date.parse(lastCacheRefreshAt);
+    if (Number.isNaN(parsed)) {
+      return {
+        label: lastCacheRefreshAt,
+        machineDate: null as string | null
+      };
+    }
+
+    return {
+      label: new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }).format(parsed),
+      machineDate: new Date(parsed).toISOString()
+    };
+  }, [isLoading, lastCacheRefreshAt]);
 
   return (
     <main className="app-shell">
@@ -254,6 +280,14 @@ export default function App() {
           >
             Posts
           </button>
+          <div className="hero-nav-refresh" aria-live="polite">
+            <span className="hero-nav-refresh-label">GitHub cache</span>
+            {lastCacheRefreshDisplay.machineDate ? (
+              <time dateTime={lastCacheRefreshDisplay.machineDate}>{lastCacheRefreshDisplay.label}</time>
+            ) : (
+              <span>{lastCacheRefreshDisplay.label}</span>
+            )}
+          </div>
         </nav>
 
         <div className="hero-grid">

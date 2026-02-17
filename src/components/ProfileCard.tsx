@@ -160,17 +160,6 @@ export default function ProfileCard({ user, readme, commitHistory, topLanguageUs
         </div>
       </div>
 
-      <div className="stats">
-        <div>
-          <strong>{user.followers}</strong>
-          <span>Followers</span>
-        </div>
-        <div>
-          <strong>{user.following}</strong>
-          <span>Following</span>
-        </div>
-      </div>
-
       <section className="commit-history" aria-label={`Last ${displayDays} days commit history`}>
         <div className="commit-history-head">
           <h3>{displayDays}-day commits</h3>

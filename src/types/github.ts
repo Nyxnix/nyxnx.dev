@@ -44,11 +44,6 @@ export interface GitHubUser {
   public_repos: number;
 }
 
-export interface ReadmeContentResponse {
-  content: string;
-  encoding: string;
-}
-
 export interface GitHubCacheMeta {
   username: string;
   fetched_at: string;

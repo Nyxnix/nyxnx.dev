@@ -16,6 +16,10 @@ await build({
   platform: 'browser',
   minify: true,
   target: ['es2018'],
+  define: {
+    'import.meta.env.DEV': 'false',
+    'import.meta.env.BASE_URL': '"/"'
+  },
   outfile: path.join(outDir, 'app.js'),
   loader: {
     '.svg': 'dataurl'
