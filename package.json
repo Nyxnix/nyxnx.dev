@@ -2,6 +2,7 @@
   "name": "nyxnx.dev",
   "version": "1.0.0",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "scripts": {
     "start": "node ./server/index.mjs",
