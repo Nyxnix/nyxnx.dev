@@ -1,0 +1,4 @@
+/node_modules
+.DS_Store
+hugo/.hugo_build.lock
+hugo/docs/

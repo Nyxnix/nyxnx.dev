@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+    <link rel="stylesheet" href="{{ "styles/site.css" | relURL }}" />
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true"></div>
+
+    <header class="site-shell site-header">
+      <a class="brand" href="{{ "/" | relURL }}">Nyx Notes</a>
+      <nav class="top-nav" aria-label="Blog navigation">
+        <a href="{{ "/" | relURL }}">Posts</a>
+        <a href="/">Main Site</a>
+      </nav>
+    </header>
+
+    <main class="site-shell">
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-shell site-footer">
+      <p>Built with Hugo. Published from this repository.</p>
+    </footer>
+  </body>
+</html>

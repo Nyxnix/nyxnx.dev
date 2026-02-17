@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <section class="intro-card">
+    <p class="eyebrow">Archive</p>
+    <h1>{{ .Title }}</h1>
+    <p>{{ with .Content }}{{ . | plainify }}{{ else }}Browse recent entries.{{ end }}</p>
+  </section>
+
+  <section class="post-grid" aria-label="Post archive">
+    {{ range .Pages.ByDate.Reverse }}
+      <article class="post-card">
+        <p class="post-date">{{ .Date.Format "Jan 2, 2006" }}</p>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ with .Params.summary }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}</p>
+      </article>
+    {{ else }}
+      <p class="empty-state">No posts yet.</p>
+    {{ end }}
+  </section>
+{{ end }}

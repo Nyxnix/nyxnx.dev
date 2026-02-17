@@ -1,0 +1,36 @@
+{
+  "name": "nyxnx.dev",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ./server/index.mjs",
+    "dev": "vite",
+    "dev:server": "node --watch ./server/index.mjs",
+    "build": "npm run build:panel",
+    "build:panel": "node ./scripts/build-panel.mjs",
+    "build:touchpanel": "BUILD_OUT_DIR=docs node ./scripts/build-panel.mjs",
+    "build:web": "tsc --noEmit && vite build --outDir docs",
+    "dev:hugo": "hugo server --source ./hugo --disableFastRender --baseURL http://localhost:1313/",
+    "build:hugo": "hugo --source ./hugo --destination ../docs/posts --baseURL /posts/ --cleanDestinationDir",
+    "build:site": "npm run build:web && npm run build:hugo",
+    "new:post": "hugo new --source ./hugo posts/$(date +%Y-%m-%d)-new-post.md",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "markdown-to-jsx": "^7.7.13",
+    "redis": "^5.8.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.25.0",
+    "hugo-bin": "^0.122.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}

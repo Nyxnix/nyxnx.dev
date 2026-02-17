@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #131a1d;
+  --bg-alt: #182126;
+  --surface: rgba(19, 29, 34, 0.8);
+  --surface-strong: rgba(24, 36, 42, 0.88);
+  --text-main: #ebf7f3;
+  --text-muted: #a7c2b8;
+  --accent: #8df2c9;
+  --accent-strong: #54deab;
+  --signal: #ff9e5a;
+  --border: rgba(199, 240, 227, 0.2);
+  --shadow: 0 22px 46px rgba(0, 0, 0, 0.24);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', 'Avenir Next', 'Segoe UI', sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(90% 70% at 10% 0%, rgba(84, 222, 171, 0.24) 0%, transparent 55%),
+    radial-gradient(70% 50% at 100% 0%, rgba(255, 130, 58, 0.2) 0%, transparent 62%),
+    linear-gradient(145deg, var(--bg), var(--bg-alt));
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(circle at center, black 34%, transparent 85%);
+}
+
+.site-shell {
+  width: min(880px, 100%);
+  margin: 0 auto;
+  padding-left: clamp(1rem, 3vw, 1.5rem);
+  padding-right: clamp(1rem, 3vw, 1.5rem);
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  min-height: 2rem;
+  padding: 0.2rem 0.72rem;
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.44rem;
+}
+
+.top-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.2rem 0.66rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.top-nav a:hover {
+  color: var(--text-main);
+  border-color: rgba(199, 240, 227, 0.4);
+}
+
+.intro-card {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  background: linear-gradient(130deg, rgba(11, 19, 22, 0.7), rgba(24, 37, 43, 0.85));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.62rem;
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.69rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 0.44rem;
+  height: 0.44rem;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 0 3px rgba(255, 130, 58, 0.2);
+}
+
+.intro-card h1 {
+  margin: 0.7rem 0 0;
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  line-height: 0.94;
+}
+
+.intro-card p {
+  margin: 0.65rem 0 0;
+  color: var(--text-muted);
+  max-width: 50ch;
+}
+
+.post-grid {
+  margin-top: 0.95rem;
+  display: grid;
+  gap: 0.74rem;
+}
+
+.post-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.86rem 0.92rem;
+  background: var(--surface);
+  backdrop-filter: blur(8px);
+}
+
+.post-date {
+  margin: 0;
+  color: var(--text-muted);
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.post-card h2 {
+  margin: 0.46rem 0 0;
+  font-size: 1.08rem;
+}
+
+.post-card h2 a,
+.back-link a,
+.post-content a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.post-card h2 a:hover,
+.back-link a:hover,
+.post-content a:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.post-card p {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+}
+
+.post-single {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: clamp(1rem, 2.6vw, 1.5rem);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow);
+}
+
+.post-single h1 {
+  margin: 0.62rem 0 0;
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.85rem, 6vw, 3rem);
+  line-height: 0.94;
+}
+
+.post-summary {
+  margin: 0.64rem 0 0;
+  color: var(--text-muted);
+}
+
+.post-content {
+  margin-top: 0.9rem;
+  line-height: 1.6;
+}
+
+.post-content pre,
+.post-content code {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+}
+
+.post-content pre {
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.62rem;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.back-link {
+  margin-top: 1rem;
+}
+
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 0.9rem;
+  color: var(--text-muted);
+}
+
+.site-footer {
+  padding-top: 1.1rem;
+  padding-bottom: 1.6rem;
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 620px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .top-nav {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .top-nav a {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

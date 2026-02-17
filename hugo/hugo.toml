@@ -1,0 +1,15 @@
+baseURL = "https://nyxnx.dev/posts/"
+languageCode = "en-us"
+title = "Nyx Notes"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term", "section"]
+
+[params]
+  author = "Nyx"
+  description = "Short updates, build notes, and experiments."
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[permalinks]
+  posts = "/:slug/"
