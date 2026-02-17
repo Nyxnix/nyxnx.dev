@@ -89,6 +89,22 @@ function MarkdownImage({ src, alt, ...rest }: ComponentPropsWithoutRef<'img'>) {
   );
 }
 
+function XLogoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M18.244 2h3.308l-7.227 8.26L22.8 22h-6.633l-5.196-6.792L4.99 22H1.68l7.73-8.835L1.2 2h6.801l4.697 6.231L18.244 2Zm-1.161 18h1.833L7.014 3.896H5.046L17.083 20Z" />
+    </svg>
+  );
+}
+
+function DiscordLogoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.317 4.369A19.791 19.791 0 0 0 15.885 3a13.914 13.914 0 0 0-.635 1.285 18.27 18.27 0 0 0-6.5 0A13.468 13.468 0 0 0 8.115 3a19.736 19.736 0 0 0-4.432 1.369C.533 9.017-.321 13.549.106 18.018a19.899 19.899 0 0 0 5.993 2.981c.485-.667.918-1.371 1.293-2.108a12.969 12.969 0 0 1-2.035-.975c.171-.125.338-.253.5-.384 3.924 1.843 8.178 1.843 12.056 0 .163.133.329.261.5.384-.65.383-1.332.71-2.035.975.375.737.808 1.441 1.293 2.108a19.853 19.853 0 0 0 5.993-2.981c.5-5.183-.854-9.674-3.347-13.649ZM8.02 15.331c-1.182 0-2.156-1.085-2.156-2.419 0-1.333.948-2.418 2.156-2.418 1.219 0 2.168 1.096 2.156 2.418 0 1.334-.948 2.419-2.156 2.419Zm7.96 0c-1.182 0-2.156-1.085-2.156-2.419 0-1.333.948-2.418 2.156-2.418 1.219 0 2.168 1.096 2.156 2.418 0 1.334-.937 2.419-2.156 2.419Z" />
+    </svg>
+  );
+}
+
 function getCommitLevel(commitCount: number, maxCount: number): number {
   if (commitCount <= 0) {
     return 0;
@@ -151,11 +167,31 @@ export default function ProfileCard({ user, readme, commitHistory, topLanguageUs
 
       <div className="profile-top">
         <img src={user.avatar_url} alt={`${user.login} avatar`} className="avatar" />
-        <div>
+        <div className="profile-identity">
           <h3>{user.name ?? user.login}</h3>
-          <a href={user.html_url} target="_blank" rel="noreferrer">
+          <a href={user.html_url} target="_blank" rel="noreferrer" className="profile-handle">
             @{user.login}
           </a>
+          <div className="profile-social-list" aria-label="Additional social accounts">
+            <a
+              href="https://x.com/nyxcyrix"
+              target="_blank"
+              rel="noreferrer"
+              className="profile-social-link"
+              aria-label="X account @nyxcyrix"
+            >
+              <span className="profile-social-icon">
+                <XLogoIcon />
+              </span>
+              <span>@nyxcyrix</span>
+            </a>
+            <span className="profile-social-link profile-social-static" aria-label="Discord account @nyxnx">
+              <span className="profile-social-icon">
+                <DiscordLogoIcon />
+              </span>
+              <span>@nyxnx</span>
+            </span>
+          </div>
           {user.bio ? <p>{user.bio}</p> : null}
         </div>
       </div>
